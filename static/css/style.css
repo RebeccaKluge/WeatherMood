@@ -119,6 +119,7 @@ video {
     font-weight: bold;
     font-size: 1.9rem;
     text-align: center;
+    padding-top: 5px;
 }
 
 .day-nav {
@@ -127,10 +128,9 @@ video {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    padding: 0 10px;
+    
 }
   
- 
 .menu-icon {
     position: absolute;
     right: 8px;
@@ -168,6 +168,15 @@ video {
     font-size: 1.3rem;
     cursor: pointer;
     float: left;
+}
+
+button {
+    color: black;
+    font: inherit;
+}
+
+.city-button {
+    color: black;
 }
 
 #closeMenu {
