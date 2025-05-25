@@ -1,0 +1,373 @@
+* {
+    box-sizing: border-box;
+}
+  
+body {
+    margin: 0;
+    background-color: white;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 200;
+    overflow-x: hidden;
+}
+  
+.container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 0fr 1fr 1fr 0.5fr 0.5fr;
+    grid-template-areas:
+      "Menu Menu Menu Menu Menu Menu"
+      "Text Text Text Logo Logo Logo"
+      "Text Text Text Logo Logo Logo"
+      "Temperature Temperature Temperature Wind Water Rain"
+      "Temperature Temperature Temperature Wind Water Rain";
+    gap: 10px;
+    padding: 20px;
+}
+  
+/* Grid Areas */
+.Menu {
+    grid-area: Menu;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 60px;
+    background-color: white;
+    margin-top: -0.5rem;
+    gap: 10px;
+}
+  
+.Text {
+    grid-area: Text;
+    display: flex;
+    flex-direction: column;     
+    align-items: flex-start;    
+    padding-left: 3rem;
+    gap: 0.3rem; 
+     
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+#cityName {
+    font-size: 2rem;
+    font-weight: normal;
+    
+}
+
+#cityTime{
+    font-size: 1.8rem;
+    padding-top: 10px;
+    padding-bottom: 60px;
+}
+  
+.Logo {
+    grid-area: Logo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.Temperature {
+    grid-area: Temperature;
+    font-size: 4rem;
+    padding-left: 3rem;
+   
+}
+  
+.Wind {
+    grid-area: Wind;
+    display: flex;
+    padding-top: 15px;
+    gap: 8px;
+    font-size: 1.9rem;
+    
+}
+  
+.Water {
+    grid-area: Water;
+    display: flex;
+    padding-top: 15px;
+    gap: 8px;
+    font-size: 1.9rem;
+}
+
+.Rain {
+    grid-area: Rain;
+    display: flex;
+    padding-top: 15px;
+    gap: 8px;
+    font-size: 1.9rem;
+}
+
+.icon {
+    margin-top: -12px;
+    width: 60px;
+    height: 60px;
+}
+  
+video {
+    width: 300%;
+    max-width:450px;
+    z-index: -1;
+}
+  
+
+.day-label {
+    font-weight: bold;
+    font-size: 1.9rem;
+    text-align: center;
+}
+
+.day-nav {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 10px;
+}
+  
+ 
+.menu-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+  
+.side-menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    top: 0;
+    right: -350px;
+    width: 300px;
+    height: 100%;
+    background: #f2f2f2;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+ 
+  
+.side-menu.open {
+    right: 0;
+}
+  
+.side-menu button {
+    padding-top: 15px;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    float: left;
+}
+
+#closeMenu {
+    font-size: 2rem;
+}
+  
+
+#searchInput {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+  
+#searchInput:focus {
+    border-color: #878e96;
+    box-shadow: 0 0 0 3px rgba(90, 94, 98, 0.2);
+}
+
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(240, 240, 240, 0.85); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    font-family: 'Inter', sans-serif;
+}
+  
+.loading-text {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: 300;
+}
+  
+  
+
+@media (max-width: 900px) {
+    .container {
+      grid-template-rows: 0fr 1fr 0.2fr 0.2fr 0.2fr;
+      grid-template-areas:
+        "Menu Menu Menu Menu Menu Menu"
+        "Text Text Text Text Logo Logo"
+        "Text Text Text Text Logo Logo"
+        "Temperature Temperature Temperature Wind Water Water"
+        "Temperature Temperature Temperature Wind Rain Rain";
+    }
+
+    h1 {
+        font-size: 3.6rem;
+    }
+    .icon {
+        margin-top: -10px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .Wind {
+        grid-area: Wind;
+        display: flex;
+        padding-top: 50px;
+        gap: 8px;
+        
+    }
+    .day-label {
+        font-size: 1.2rem;
+    }
+
+    #cityTime{
+        font-size: 1.4rem;
+        padding-bottom: 45px;
+    }
+
+    .Temperature {
+        grid-area: Temperature;
+        font-size: 4rem;
+        padding-left: 3rem;
+        padding-top: 30px;
+    }
+    video {
+        width: 300%;
+        max-width:450px;
+        padding-right: 50px;
+        z-index: -1;
+      }
+
+    .Rain {
+        grid-area: Rain;
+        display: flex;
+        gap: 8px;
+    }
+
+    .Wind,
+    .Water,
+    .Rain {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+     
+        grid-template-rows: 0fr 0.8fr 0.8fr auto auto auto;
+
+      grid-template-areas:
+        "Menu Menu Menu Menu Menu Menu"
+        "Text Text Text Text Logo Logo"
+        "Text Text Text Text Logo Logo"
+        "Temperature Temperature Temperature Wind Wind Wind"
+        "Temperature Temperature Temperature Water Water Water"
+        "Temperature Temperature Temperature Rain Rain Rain";
+    }
+    h1 {
+        font-size: 2rem;
+    }
+
+    .icon {
+        margin-top: -6px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .Text {
+        grid-area: Text;
+        display: flex;
+        flex-direction: column;     
+        align-items: flex-start;    
+        padding-left: 0.5rem;
+        gap: 0.3rem; 
+        margin: 0;
+        padding-bottom: 0.5rem; 
+    }
+    .Temperature {
+        grid-area: Temperature;
+        font-size: 2rem;
+        padding-left: 0.6rem;
+        padding-top: 3.5rem;
+       
+    }
+
+    #cityTime{
+        font-size: 1rem;
+        padding-top: 10px;
+        padding-bottom: 35px;
+      }
+
+    video {
+        width: 500%;
+        max-width:250px;
+        z-index: -1;
+        padding-top: 40px;
+        padding-right: 40px;
+      }
+    
+    .Wind {
+        grid-area: Wind;
+        padding-top: 15px; 
+    }
+
+    #cityName{
+        font-size: 1.3rem;
+    }
+
+    .Wind,
+    .Water,
+    .Rain {
+        font-size: 1rem;
+    }
+    .side-menu {
+        width: 200px;
+    }
+
+    .loading-text {
+        font-size: 0.9rem;
+    }
+
+    .Menu {
+        gap: 5px;
+    }
+
+}
+
+/* .Menu,
+.Text,
+.Logo,
+.Temperature,
+.Wind,
+.Water,
+.Rain {
+  border: 1px solid red;
+} */
+
+  
+  

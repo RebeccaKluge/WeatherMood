@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather</title>
+  <link rel="stylesheet" href="static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <script defer src="static/js/weather.js"></script>
+</head>
+
+<body>
+<div class="side-menu" id="sideMenu">
+    <button id="closeMenu">&times;</button>
+    <input type="text" id="searchInput" placeholder="Search city..." />
+      
+    <button class="city-button" data-city="Berlin">BERLIN</button>
+    <button class="city-button" data-city="New York">NEW YORK</button>
+    <button class="city-button" data-city="London">LONDON</button>
+    <button class="city-button" data-city="Cape Town">CAPE TOWN</button>
+    <button class="city-button" data-city="São Paulo">SÃO PAULO</button>
+    <button class="city-button" data-city="Los Angeles">LOS ANGELES</button>
+    <button class="city-button" data-city="Cairo">CAIRO</button>
+</div>
+      
+
+<div class="container">
+    <div class="Menu">
+        <button class="day-nav" id="prevDay">&lt;</button>
+        <span class="day-label" id="dayLabel">TUE</span>
+        <button class="day-nav" id="nextDay">&gt;</button>
+        <div class="menu-icon" id="menuButton">&#9776;</div>
+    </div>
+      
+  <div class="Text">
+    <h1 id="weatherText">Aktuelles Wetter</h1>
+    <span id="cityName">BERLIN</span>
+    <span id="cityTime">–</span>
+  </div>
+  <div class="Logo">
+    <video id="weatherVideo" autoplay loop muted playsinline>
+      <source id="videoSource" src="static/media/sun.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="Temperature" id="temperature">Temperatur: –</div>
+
+  <div class="Wind" id="wind">
+    <img id="windIcon" src="static/media/wind_icon.png" alt="Wind Icon" class="icon" />
+    <span id="windText">–</span>
+  </div>
+
+  <div class="Water" id="water">
+    <img id="waterIcon" src="static/media/humidity_icon.png" alt="Humidity Icon" class="icon" />
+    <span id="waterText">–</span>
+  </div>
+
+  <div class="Rain" id="rain">
+    <img id="rainIcon" src="static/media/rain_icon.png" alt="Rain probability Icon" class="icon" />
+    <span id="rainText">–</span>
+  </div>
+</div>
+
+<div id="loadingOverlay">
+    <div class="loading-text">Weather data is loading ...</div>
+</div>
+  
+
+<script>
+
+    // Video
+    document.getElementById("weatherVideo").playbackRate = 0.5;
+
+    if (!localStorage.getItem("selectedCity")) {
+        localStorage.setItem("selectedCity", "Berlin");
+    }
+    const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    document.getElementById("dayLabel").textContent = days[new Date().getDay()];
+
+    // Slide-Menu
+    const menu = document.getElementById("sideMenu");
+    document.getElementById("menuButton").onclick = () => menu.classList.add("open");
+    document.getElementById("closeMenu").onclick = () => menu.classList.remove("open");
+
+    const sideMenu = document.getElementById("sideMenu");
+    const closeMenuBtn = document.getElementById("closeMenu");
+
+    closeMenuBtn.addEventListener("click", () => {
+    sideMenu.classList.remove("open");
+    });
+
+    document.querySelectorAll(".city-button").forEach(button => {
+        button.addEventListener("click", () => {
+        selectedCity = button.dataset.city;
+        localStorage.setItem("selectedCity", selectedCity);
+        document.getElementById("sideMenu").classList.remove("open");
+        location.reload(); 
+        });
+    });
+
+</script>
+</body>
+</html>
