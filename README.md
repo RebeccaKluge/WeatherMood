@@ -2,7 +2,7 @@
 
 ## 🔗 Access the Web Application  
 You can access the app here:  
-👉 [Launch App](https://your-github-link-here.github.io/)
+👉 [Click here to start the app](https://rebeccakluge.github.io/WeatherMood/)
 
 ---
 
