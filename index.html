@@ -44,29 +44,29 @@
     <span id="cityTime">–</span>
   </div>
   <div class="Logo">
-    <video id="weatherVideo" autoplay loop muted playsinline>
+    <video id="weatherVideo" autoplay loop muted playsinline aria-hidden="true">
       <source id="videoSource" src="static/media/sun.mp4" type="video/mp4" />
     </video>
   </div>
-  <div class="Temperature" id="temperature">Temperatur: –</div>
+  <div class="Temperature" id="temperature" aria-label="Temperature">Temperatur: –</div>
 
   <div class="Wind" id="wind">
-    <img id="windIcon" src="static/media/wind_icon.png" alt="Wind Icon" class="icon" />
-    <span id="windText">–</span>
+    <img id="windIcon" src="static/media/wind_icon.png" alt="Wind Icon" class="icon" aria-hidden="true"/>
+    <span id="windText" aria-label="Wind speed">–</span>
   </div>
 
   <div class="Water" id="water">
-    <img id="waterIcon" src="static/media/humidity_icon.png" alt="Humidity Icon" class="icon" />
-    <span id="waterText">–</span>
+    <img id="waterIcon" src="static/media/humidity_icon.png" alt="Humidity Icon" class="icon" aria-hidden="true"/>
+    <span id="waterText" aria-label="Relative humidity">–</span>
   </div>
 
   <div class="Rain" id="rain">
-    <img id="rainIcon" src="static/media/rain_icon.png" alt="Rain probability Icon" class="icon" />
-    <span id="rainText">–</span>
+    <img id="rainIcon" src="static/media/rain_icon.png" alt="Rain probability Icon" class="icon" aria-hidden="true"/>
+    <span id="rainText" aria-label="Precipitation probability">–</span>
   </div>
 </div>
 
-<div id="loadingOverlay">
+<div id="loadingOverlay" role="status" aria-live="polite">
     <div class="loading-text">Weather data is loading ...</div>
 </div>
   
