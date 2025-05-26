@@ -24,13 +24,14 @@ const weatherVideos = {
 
 const cityCoordinates = {
     "Berlin":     { lat: 52.52,    lon: 13.405 },
+    "Hamburg":     { lat: 53.5511,   lon: 9.9937 },
     "New York":   { lat: 40.7128,  lon: -74.006 },
     "London":     { lat: 51.5072,  lon: -0.1276 },
     "Cape Town":  { lat: -33.9249, lon: 18.4241 },
     "São Paulo":  { lat: -23.5505, lon: -46.6333 },
     "Los Angeles":{ lat: 34.0522,  lon: -118.2437 },
     "Cairo":      { lat: 30.0444,  lon: 31.2357 }
-  };
+};
   
 
 function getWeatherGroup(code) {
@@ -55,7 +56,7 @@ function getWeatherGroup(code) {
 let cityName = localStorage.getItem("selectedCity")
 console.log("selectedCity:", cityName); 
 
-const coords = cityCoordinates[cityName] || cityCoordinates["Berlin"];
+const coords = cityCoordinates[cityName] || cityCoordinates["Hamburg"];
 const latitude = coords.lat;
 const longitude = coords.lon;
 
@@ -64,10 +65,16 @@ const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&long
 document.getElementById("cityName").textContent = cityName.toUpperCase();
 
 const cityTimeZones = {
-    "Berlin": "Europe/Berlin",
-    "New York": "America/New_York",
-    "London": "Europe/London"
+  "Berlin": "Europe/Berlin",
+  "New York": "America/New_York",
+  "London": "Europe/London",
+  "Cape Town": "Africa/Johannesburg",
+  "São Paulo": "America/Sao_Paulo",
+  "Los Angeles": "America/Los_Angeles",
+  "Cairo": "Africa/Cairo",
+  "Hamburg": "Europe/Berlin"
 };
+
   
 const timeZone = cityTimeZones[cityName] || "UTC";
   
