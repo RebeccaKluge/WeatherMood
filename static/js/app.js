@@ -9,7 +9,7 @@ function saveSelectedCity(city) {
     localStorage.setItem('selectedCity', cityNameOnly);
     localStorage.setItem('selectedCityLat', city.lat);
     localStorage.setItem('selectedCityLon', city.lon);
-    alert(`Gespeichert: ${city.display_name} (${city.lat}, ${city.lon})`);
+    //alert(`Gespeichert: ${city.display_name} (${city.lat}, ${city.lon})`);
     location.reload();  
 
 }
@@ -51,7 +51,6 @@ searchInput.addEventListener('input', () => {
   }
 });
 
-// Enter zum Bestätigen der ersten Stadt in der Liste
 searchInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
@@ -71,7 +70,6 @@ searchInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Klick außerhalb schließt Vorschläge
 document.addEventListener('click', (e) => {
   if (!searchInput.contains(e.target) && !suggestions.contains(e.target)) {
     clearSuggestions();
