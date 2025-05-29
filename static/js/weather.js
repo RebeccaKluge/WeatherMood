@@ -56,9 +56,12 @@ function getWeatherGroup(code) {
 let cityName = localStorage.getItem("selectedCity")
 console.log("selectedCity:", cityName); 
 
-const coords = cityCoordinates[cityName] || cityCoordinates["Hamburg"];
-const latitude = coords.lat;
-const longitude = coords.lon;
+const storedLat = localStorage.getItem("selectedCityLat");
+const storedLon = localStorage.getItem("selectedCityLon");
+
+const latitude = storedLat ? parseFloat(storedLat) : (cityCoordinates[cityName]?.lat || cityCoordinates["Hamburg"].lat);
+const longitude = storedLon ? parseFloat(storedLon) : (cityCoordinates[cityName]?.lon || cityCoordinates["Hamburg"].lon);
+
 
 const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weathercode,windspeed_10m&hourly=precipitation_probability,relative_humidity_2m&timezone=auto`;
 
@@ -104,7 +107,7 @@ const formattedTime = `${month}/${day}/${year} - ${hour}:${minute}${dayPeriod}`;
   
 document.getElementById("cityTime").textContent = formattedTime;
   
-const minLoadingTime = new Promise(resolve => setTimeout(resolve, 2000)); //Show Overlay for 3 sec
+const minLoadingTime = new Promise(resolve => setTimeout(resolve, 2000)); //Show Overlay for 2 sec
 
 // fetch(apiUrl)
 //     .then(response => response.json())
@@ -117,43 +120,64 @@ Promise.all([
     .then(([data]) => {
         const current = data.current;
         const nowHour = new Date().toISOString().slice(0, 13); 
-        const index = data.hourly.time.findIndex(t => t.startsWith(nowHour));
-      
+        let index = data.hourly.time.findIndex(t => t.startsWith(nowHour));
         const group = getWeatherGroup(current.weathercode);
       
         document.getElementById("temperature").textContent = `${current.temperature_2m} °C`;
         document.getElementById("windText").textContent = `${current.windspeed_10m} km/h`;
         document.getElementById("weatherText").textContent = weatherCodes[group] || "WE HAVE AN UNKNOWN WEATHER";
       
-        if (index !== -1) {
-          const humidity = data.hourly.relative_humidity_2m[index];
-          const rainProbability = data.hourly.precipitation_probability[index];
-          document.getElementById("waterText").textContent = `${humidity} %`;
-          document.getElementById("rainText").textContent = `${rainProbability} %`;
-        } else {
-          document.getElementById("waterText").textContent = "–";
-          document.getElementById("rainText").textContent = "–";
+        if (
+          index === -1 ||
+          data.hourly.relative_humidity_2m[index] == null ||
+          data.hourly.precipitation_probability[index] == null
+        ) {
+          index = -1; 
+
+          for (let i = data.hourly.time.length - 1; i >= 0; i--) {
+            const h = data.hourly.relative_humidity_2m[i];
+            const r = data.hourly.precipitation_probability[i];
+
+            if (h != null && r != null) {
+              index = i;
+              break;
+            }
+          }
         }
+
+
+      if (index !== -1) {
+        const humidity = data.hourly.relative_humidity_2m[index];
+        const rainProbability = data.hourly.precipitation_probability[index];
+
+        document.getElementById("waterText").textContent = `${humidity} %`;
+        document.getElementById("rainText").textContent = `${rainProbability} %`;
+      } else {
+  
+        document.getElementById("waterText").textContent = "–";
+        document.getElementById("rainText").textContent = "–";
+      }
+
+
       
-        const videoPath = weatherVideos[group] || "static/media/sun.mp4";
-        const video = document.getElementById("weatherVideo");
-        const source = document.getElementById("videoSource");
+      const videoPath = weatherVideos[group] || "static/media/sun.mp4";
+      const video = document.getElementById("weatherVideo");
+      const source = document.getElementById("videoSource");
       
-        if (!source.src.endsWith(videoPath)) {
-          source.src = videoPath;
-          video.load();
-          video.play();
-        }
+      if (!source.src.endsWith(videoPath)) {
+        source.src = videoPath;
+        video.load();
+        video.play();
+      }
       
-        //close Overlay
-        const overlay = document.getElementById("loadingOverlay");
-        if (overlay) overlay.style.display = "none";
+      const overlay = document.getElementById("loadingOverlay");
+      if (overlay) overlay.style.display = "none";
     })
     .catch(error => {
-        console.error("Fehler beim Abrufen der Daten:", error);
-        document.getElementById("temperature").textContent = "Temperatur: Fehler beim Laden";
+      console.error("Fehler beim Abrufen der Daten:", error);
+      document.getElementById("temperature").textContent = "Temperatur: Fehler beim Laden";
       
-        const overlay = document.getElementById("loadingOverlay");
-        if (overlay) overlay.style.display = "none";
+      const overlay = document.getElementById("loadingOverlay");
+      if (overlay) overlay.style.display = "none";
     });
       

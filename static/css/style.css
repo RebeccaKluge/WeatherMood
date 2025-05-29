@@ -201,6 +201,26 @@ button {
     box-shadow: 0 0 0 3px rgba(90, 94, 98, 0.2);
 }
 
+#suggestions {
+    border: 1px solid #ccc;
+    max-width: 260px;
+    margin-top: 110px;
+    padding-left: 0;
+    list-style: none;
+    position: absolute;
+    background: white;
+    z-index: 100;
+}
+
+#suggestions li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+#suggestions li:hover {
+    background-color: #eee;
+}
+
 #loadingOverlay {
     position: fixed;
     top: 0;
@@ -364,6 +384,10 @@ button {
 
     .Menu {
         gap: 5px;
+    }
+
+    #suggestions {
+        max-width: 209px;
     }
 
 }

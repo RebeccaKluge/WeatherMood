@@ -6,6 +6,7 @@
   <title>Weather</title>
   <link rel="stylesheet" href="static/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <script type="module" src="static/js/app.js"></script>
   <script defer src="static/js/weather.js"></script>
 </head>
 
@@ -14,6 +15,7 @@
   <div class="side-menu" id="sideMenu">
     <button id="closeMenu" aria-label="Close menu">&times;</button>
     <input type="text" id="searchInput" placeholder="Search city..." aria-label="Search for a city"/>
+    <ul id="suggestions"></ul>
     <button class="city-button" data-city="Hamburg" aria-label="Select Hamburg">HAMBURG</button>
     <button class="city-button" data-city="Berlin" aria-label="Select Berlin">BERLIN</button>
     <button class="city-button" data-city="New York" aria-label="Select New York">NEW YORK</button>
